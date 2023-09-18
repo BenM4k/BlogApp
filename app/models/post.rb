@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   has_many :comments
   has_many :likes
-  belongs_to :user, counter_cache: true
+  belongs_to :author class_name: 'User', counter_cache: true
 
   def increment_post_counter
     user = User.find(author_id)
