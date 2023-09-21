@@ -1,9 +1,9 @@
 class Like < ApplicationRecord
-  belongs_to :post, counter_cache: true
+  belongs_to :post
   belongs_to :user
 
-  def increment_comments_count
+  def increment_likes_count
     post = Post.find_by(id: post_id)
-    post.increment!(:comments_counter)
+    post.increment!(:likes_counter)
   end
 end

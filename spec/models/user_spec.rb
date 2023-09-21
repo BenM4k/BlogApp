@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe User, type: :model do
-  subject { User.new(name: 'Tester 2', posts_counter: 0) }
+  subject { User.create( name: 'Tester 2', posts_counter: 0) }
 
   context 'When Testing new user validity' do
     it 'should be valid' do
@@ -20,14 +20,12 @@ describe User, type: :model do
   end
 
   context 'When testing user methods' do
-    it '' do
-      post1 = Post.create(title: 'title_test', likes_counter: 0, comments_counter: 0, author_id: 1)
-      post2 = Post.create(title: 'title_test2', likes_counter: 0, comments_counter: 0, author_id: 1)
-      post3 = Post.create(title: 'title_test2', likes_counter: 0, comments_counter: 0, author_id: 1)
+    it 'Should return the three last posts of the user' do
+      post1 = Post.create(title: 'title_test', likes_counter: 0, comments_counter: 0, author_id: subject.id)
+      post2 = Post.create(title: 'title_test2', likes_counter: 0, comments_counter: 0, author_id: subject.id)
+      post3 = Post.create(title: 'title_test2', likes_counter: 0, comments_counter: 0, author_id: subject.id)
 
-      user = User.find(1)
-
-      result = user.three_recent_posts
+      result = subject.three_recent_posts
 
       expect(result).to eq([post3, post2, post1])
     end

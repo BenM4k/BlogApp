@@ -1,17 +1,17 @@
 require 'rails_helper'
 
 describe Comment, type: :model do
-  subject { Comment.new(user_id: 1, post_id: 3) }
-  # replace user_id and post_id with valid user and post ids
-
   context 'When testing comments' do
     it 'Should increment the comment counter of a post' do
-      post = Post.find(subject.post_id)
-      comments_counter = post.comments_counter
+      user = User.create(name: 'Tester', posts_counter: 0)
+      post = Post.create(title: 'Test', likes_counter: 0, comments_counter: 0, author_id: user.id)
+      comment = Comment.create(user_id: user.id, post_id: post.id)
 
-      subject.increment_comments_count
-      updated_post = Post.find(subject.post_id)
-      expect(updated_post.comments_counter).to eq(comments_counter + 1)
+      comment.increment_comments_count
+
+      post.reload
+
+      expect(post.comments_counter).to eq(1)
     end
   end
 end

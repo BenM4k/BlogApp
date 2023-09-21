@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Post, type: :model do
-  subject { Post.new(title: 'Title', text: 'Text', likes_counter: 0, comments_counter: 0, author_id: 1) }
+  subject { Post.create(title: 'Title', text: 'Text', likes_counter: 0, comments_counter: 0, author_id: 1) }
 
   context 'When Testing new post validity' do
     it 'should be valid' do
@@ -31,15 +31,13 @@ describe Post, type: :model do
 
   context 'When testing user methods' do
     it 'Should return the last five post of a user' do
-      comment1 = Comment.create(user_id: 1, post_id: 3, text: 'Comment 10')
-      comment2 = Comment.create(user_id: 1, post_id: 3, text: 'Comment 11')
-      comment3 = Comment.create(user_id: 1, post_id: 3, text: 'Comment 12')
-      comment4 = Comment.create(user_id: 1, post_id: 3, text: 'Comment 13')
-      comment5 = Comment.create(user_id: 1, post_id: 3, text: 'Comment 14')
+      comment1 = Comment.create(user_id: 1, post_id: subject.id, text: 'Comment 10')
+      comment2 = Comment.create(user_id: 1, post_id: subject.id, text: 'Comment 11')
+      comment3 = Comment.create(user_id: 1, post_id: subject.id, text: 'Comment 12')
+      comment4 = Comment.create(user_id: 1, post_id: subject.id, text: 'Comment 13')
+      comment5 = Comment.create(user_id: 1, post_id: subject.id, text: 'Comment 14')
 
-      post = Post.find(3)
-
-      result = post.five_recent_comments
+      result = subject.five_recent_comments
 
       expect(result).to eq([comment5, comment4, comment3, comment2, comment1])
     end

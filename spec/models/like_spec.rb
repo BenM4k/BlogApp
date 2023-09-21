@@ -1,17 +1,17 @@
 require 'rails_helper'
 
 describe Like, type: :model do
-  subject { Like.new(user_id: 1, post_id: 3) }
-  # replace user_id and post_id with valid user and post ids
-
-  context 'When testing likes' do
+  context 'When testing Likes' do
     it 'Should increment the likes counter of a post' do
-      post = Post.find(subject.post_id)
-      likes_counter = post.comments_counter
+      user = User.create(name: 'Tester', posts_counter: 0)
+      post = Post.create(title: 'Test', likes_counter: 0, comments_counter: 0, author_id: user.id)
+      like = Like.create(user_id: user.id, post_id: post.id)
 
-      subject.increment_likes_count
-      updated_post = Post.find(subject.post_id)
-      expect(updated_post.likes_counter).to eq(likes_counter + 1)
+      like.increment_likes_count
+
+      post.reload
+
+      expect(post.likes_counter).to eq(1)
     end
   end
 end
