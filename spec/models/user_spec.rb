@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe User, type: :model do
-  subject { User.create( name: 'Tester 2', posts_counter: 0) }
+  subject { User.create(name: 'Tester 2', posts_counter: 0) }
 
   context 'When Testing new user validity' do
     it 'should be valid' do
