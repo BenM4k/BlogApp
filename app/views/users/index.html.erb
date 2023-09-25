@@ -1,0 +1,7 @@
+<h1>Users Page</h1>
+
+<% @users.each do |user| %>
+    <h3>user: <%= user.name %></h3>
+    <p>Bio: <%= user.bio ? user.bio : 'No Bio' %></p>
+    <%= link_to "show user", user %>
+<% end %>
