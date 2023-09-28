@@ -1,2 +1,7 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.text ? @post.text : 'No text' %></>
+<h3>Comments</h3>
+<% @post.five_recent_comments.each do |comment| %>
+    <% user = User.find(comment.user_id) %>
+    <p><%= user.name %> : <%= comment.text %></p>
+<% end %>
