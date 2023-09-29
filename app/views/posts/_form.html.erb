@@ -1,0 +1,31 @@
+<%= form_with(model: @post, url: user_posts_url, local: true)  do |form| %>
+    <% if @post.errors.any? %>
+      <div>
+        <h2><%= pluralize(@post.errors.count, "error") %></h2>
+
+        <ul>
+          <% @post.errors.full_messages.each do |message|%>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :title %>
+      <br />
+      <%= form.text_field :title %>
+      <br />
+      <br />
+    </div>
+    
+    <div>
+      <%= form.label :text %>
+      <br />
+      <%= form.text_field :text %>
+      <br />
+      <br />
+    </div>
+
+    <%= form.submit %>
+<% end %>
