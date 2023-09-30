@@ -6,9 +6,28 @@ class PostsController < ApplicationController
     @posts = Post.where(author_id: @user.id)
   end
 
+  def new
+    @post = Post.new
+  end
+
   def show; end
 
+  def create
+    @post = current_user.posts.build(post_params)
+
+    if @post.save
+      redirect_to user_post_url(current_user.id, @post.id), notice: 'Post was successfully created!'
+    else
+      flash.now[:alert] = 'Post could not be created!'
+      render :new
+    end
+  end
+
   private
+
+  def post_params
+    params.require(:post).permit(:title, :text)
+  end
 
   def set_post
     @post = Post.find(params[:id])
