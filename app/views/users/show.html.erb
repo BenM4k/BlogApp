@@ -1,7 +1,8 @@
-<h1><%= @user.name %></h1>
-<p><%= @user.bio ? @user.bio : 'No bio' %></>
+<h1><%= current_user.name %></h1>
+
+<p><%= current_user.bio ? current_user.bio : 'No bio' %></>
 <ul>
-    <%= @posts.empty? ? 'No post available' : @user.three_recent_posts.each do |post| %>
+    <% current_user.three_recent_posts.each do |post| %>
         <li>
             <h2>Title: <%= post.title %></h2>
             <p>Text: <%= post.text %></p>
@@ -10,6 +11,5 @@
         </li>
     <% end %>
     <br/>
-    <br/>
-    <%= link_to 'See all posts', user_posts_path(@user.id) %>
+    <%= link_to 'See all posts', user_posts_path(current_user.id) %>
 </ul>
