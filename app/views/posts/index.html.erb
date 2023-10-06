@@ -1,4 +1,7 @@
-<h1><%= @user.name %>'s posts page</h1>
+<img src="<%= @user.photo%>"/>
+<h1><%= @user.name %></h1>
+<p>Posts: <%= @user.posts_counter%></p>
+
 
 <% @posts.each do |post| %>
     <h2>Title: <%= post.title %></h2>
@@ -7,4 +10,7 @@
 
     <span>Comments : <%= post.comments_counter %></span>
     <%= link_to "show post", user_post_url(@user.id, post.id) %>
+    <% post.five_recent_comments.each do |comment| %>
+        <p>Comment: <%= comment.text %></p>
+    <%end%>
 <% end %>

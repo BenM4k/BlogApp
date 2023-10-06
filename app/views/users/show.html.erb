@@ -1,7 +1,10 @@
+<img src="<%= @user.photo%>"/>
 <h1><%= @user.name %></h1>
-<p><%= @user.bio ? @user.bio : 'No bio' %></>
+<p><%= @user.bio ? @user.bio : 'No bio' %></p>
+<p>Posts: <%= @user.posts_counter%></p>
+
 <ul>
-    <%= @posts.empty? ? 'No post available' : @user.three_recent_posts.each do |post| %>
+    <% @posts.empty? ? 'No post available' : @user.three_recent_posts.each do |post| %>
         <li>
             <h2>Title: <%= post.title %></h2>
             <p>Text: <%= post.text %></p>

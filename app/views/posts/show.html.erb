@@ -1,8 +1,16 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.text ? @post.text : 'No text' %></>
+<h1><%= @post.comments_counter %></h1>
 <span><%= render 'likes/form' %><%= @post.likes_counter %></span>
 <h3>Comments</h3>
 <% @post.five_recent_comments.includes(:user).each do |comment| %>
     <p><%= comment.user.name %> : <%= comment.text %></p>
 <% end %>
 <%= link_to "Add comment", new_user_post_comment_url(@user.id, @post.id)%>
+
+
+
+<%#
+Tests that assert you can see the post body.
+Tests that assert you can see the username of each comment.
+Tests that assert you can see the comment each comment left. %>
