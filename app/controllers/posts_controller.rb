@@ -23,6 +23,17 @@ class PostsController < ApplicationController
     end
   end
 
+  def destroy
+    @post = Post.find(params[:id])
+    @comments = @post.comments
+    @likes = @post.likes
+    @comments.each(&:destroy)
+    @likes.each(&:destroy)
+    @post.destroy
+
+    redirect_to user_posts_url(current_user.id), notice: 'Post was successfully destroyed!'
+  end
+
   private
 
   def post_params
