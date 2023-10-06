@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_user
   before_action :set_post, only: %i[show edit update destroy]
 
@@ -21,6 +22,17 @@ class PostsController < ApplicationController
       flash.now[:alert] = 'Post could not be created!'
       render :new
     end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @comments = @post.comments
+    @likes = @post.likes
+    @comments.each(&:destroy)
+    @likes.each(&:destroy)
+    @post.destroy
+
+    redirect_to user_posts_url(current_user.id), notice: 'Post was successfully destroyed!'
   end
 
   private
