@@ -8,6 +8,10 @@
             <p>Text: <%= post.text %></p>
             <span>likes: <%= post.likes_counter %></span>
             <span>Comments: <%= post.comments_counter %></span>
+            <% if can? :manage, Post %>
+                <%= button_to 'Delete post', user_post_url(current_user.id, post.id), method: :delete %>
+            <% end %>
+
         </li>
     <% end %>
     <br/>

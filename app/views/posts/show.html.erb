@@ -3,6 +3,14 @@
 <span><%= render 'likes/form' %><%= @post.likes_counter %></span>
 <h3>Comments</h3>
 <% @post.five_recent_comments.includes(:user).each do |comment| %>
-    <p><%= comment.user.name %> : <%= comment.text %></p>
+    <p>
+        <span><%= comment.user.name %></span> :
+        <span><%= comment.text %></p></span>
+        <% if can? :manage, Post %>
+            <%= button_to 'Delete comment', user_post_comment_url(@user.id, @post.id, comment.id), method: :delete %>
+        <% end %>
 <% end %>
 <%= link_to "Add comment", new_user_post_comment_url(@user.id, @post.id)%>
+<% if can? :manage, Post %>
+    <%= button_to 'Delete post', user_post_url(@user.id, @post.id) if can? :manage, Post, method: :delete %>
+<% end %>
