@@ -6,11 +6,11 @@ describe 'a specification' do
     Post.delete_all
     User.delete_all
     @tom = User.create(name: 'Tom', photo: 'https://placehold.co/200x133', bio: 'Teacher from Mexico.',
-                       posts_counter: 0)
+                       posts_counter: 0, email: 'teacher@tom')
     @first_post = Post.create(author: @tom, title: 'Hello', text: 'This is my first post', comments_counter: 0,
                               likes_counter: 0)
     @lilly = User.create(name: 'Lilly', photo: 'https://placehold.co/200x133', bio: 'Teacher from Poland.',
-                         posts_counter: 0)
+                         posts_counter: 0, email: 'teacher@lilly')
     @second_post = Post.create(author: @lilly, title: 'Hi Word!', text: 'Lets talk', comments_counter: 0,
                                likes_counter: 0)
     Comment.create(post: @first_post, user: @lilly, text: 'Hi Tom!')
