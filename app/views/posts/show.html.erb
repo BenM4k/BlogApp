@@ -7,10 +7,3 @@
     <p><%= comment.user.name %> : <%= comment.text %></p>
 <% end %>
 <%= link_to "Add comment", new_user_post_comment_url(@user.id, @post.id)%>
-
-
-
-<%#
-Tests that assert you can see the post body.
-Tests that assert you can see the username of each comment.
-Tests that assert you can see the comment each comment left. %>

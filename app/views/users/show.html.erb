@@ -14,6 +14,5 @@
         </li>
     <% end %>
     <br/>
-    <br/>
-    <%= link_to 'See all posts', user_posts_path(@user.id) %>
+    <%= link_to 'See all posts', user_posts_path(current_user.id) %>
 </ul>
