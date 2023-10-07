@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy]
 
   def index
-    @posts = Post.where(author_id: @user.id)
+    @posts = @user.posts.includes(:comments)
   end
 
   def new

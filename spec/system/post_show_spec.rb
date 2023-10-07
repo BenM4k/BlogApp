@@ -18,39 +18,39 @@ describe 'a specification' do
     @posts = Post.all
   end
 
-  it 'description' do
+  it 'should have the title of the post' do
     visit "/users/#{@tom.id}/posts/#{@first_post.id}"
     expect(page).to have_content(@first_post.title.to_s)
   end
 
-  it 'description' do
+  it 'should have the name of the commentor' do
     visit "/users/#{@tom.id}/posts/#{@first_post.id}"
     expect(page).to have_content(@lilly.name)
   end
 
-  it 'description' do
+  it 'should have the number of likes of a post' do
     visit "/users/#{@tom.id}/posts/#{@first_post.id}"
     expect(page).to have_content(@first_post.likes_counter)
   end
 
-  it 'description' do
+  it 'should have the number of comments for a post' do
     visit "/users/#{@tom.id}/posts/#{@first_post.id}"
     expect(page).to have_content(@first_post.comments_counter)
   end
 
-  it 'description' do
+  it 'should contain the body of the post' do
     visit "/users/#{@tom.id}/posts/#{@first_post.id}"
     expect(page).to have_content(@first_post.text)
   end
 
-  it 'description' do
+  it 'should have the username of each commentor' do
     visit "/users/#{@tom.id}/posts/#{@first_post.id}"
     @first_post.comments.each do |comment|
       expect(page).to have_content(comment.user.name)
     end
   end
 
-  it 'description' do
+  it 'should have the body of each comment' do
     visit "/users/#{@tom.id}/posts/#{@first_post.id}"
     @first_post.comments.each do |comment|
       expect(page).to have_content(comment.text)

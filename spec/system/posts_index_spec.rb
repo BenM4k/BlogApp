@@ -12,43 +12,43 @@ describe 'a specification' do
     @posts = Post.all
   end
 
-  it 'has users posts' do
+  it 'should have the name of the author of the post' do
     visit "/users/#{@tom.id}/posts"
     expect(page).to have_content(@tom.name.to_s)
   end
 
-  it 'description' do
+  it 'should have the image of the author or the post' do
     visit "/users/#{@tom.id}/posts"
     expect(page).to have_selector("img[src='https://placehold.co/200x133']")
   end
 
-  it 'has users posts' do
+  it 'should redirect to a particular post' do
     visit "/users/#{@tom.id}/posts"
     click_link 'show post'
     expect(page).to have_content(@first_post.title.to_s)
   end
 
-  it 'description' do
+  it 'should have the number of post of the current user' do
     visit "/users/#{@tom.id}/posts"
     expect(page).to have_content(@tom.posts_counter)
   end
 
-  it 'description' do
+  it 'should have the body of the post' do
     visit "/users/#{@tom.id}/posts"
     expect(page).to have_content(@first_post.text)
   end
 
-  it 'description' do
+  it 'should have the number of comments for a post' do
     visit "/users/#{@tom.id}/posts"
     expect(page).to have_content(@first_post.comments_counter)
   end
 
-  it 'description' do
+  it 'should have the number of likes for a post' do
     visit "/users/#{@tom.id}/posts"
     expect(page).to have_content(@first_post.likes_counter)
   end
 
-  it 'description' do
+  it 'should paginate the page' do
     visit "/users/#{@tom.id}/posts"
     post_per_page = 10
     pages = (@posts.length / post_per_page).ceil
@@ -57,10 +57,16 @@ describe 'a specification' do
     end
   end
 
-  it 'description' do
+  it 'should display the first comment of the post' do
     visit "/users/#{@tom.id}/posts"
     @first_post.five_recent_comments.each do |comment|
       expect(page).to have_content(comment.text)
     end
+  end
+
+  it 'should redirect to a particular post page' do
+    visit "/users/#{@tom.id}/posts"
+    click_link "See #{@first_post.title}"
+    expect(page).to have_current_path("/users/#{@tom.id}/posts/#{@first_post.id}")
   end
 end

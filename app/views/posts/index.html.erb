@@ -4,6 +4,7 @@
 
 
 <% @posts.each do |post| %>
+    <%= link_to "See #{post.title}", user_post_url(@user.id, post.id) %>
     <h2>Title: <%= post.title %></h2>
     <p>Text: <%= post.text %></p>
     <span>Likes : <%= post.likes_counter %></span>

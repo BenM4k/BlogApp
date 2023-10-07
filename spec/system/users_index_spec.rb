@@ -13,33 +13,29 @@ describe 'a specification' do
     @users = User.all
   end
 
-  it 'description' do
+  it 'Should have the page placeholder' do
     visit users_path
     expect(page).to have_content('Users Page')
   end
 
-  it 'description' do
+  it 'should have the name of the users' do
     visit users_path
+    expect(page).to have_content('Lilly')
     expect(page).to have_content('Tom')
   end
 
-  it 'description' do
-    visit users_path
-    expect(page).to have_content('Lilly')
-  end
-
-  it 'description' do
+  it 'should have the number of posts of a particular user' do
     visit users_path
     expect(page).to have_content("Posts: #{@tom.posts_counter}")
   end
 
-  it 'description' do
+  it 'should redirect to the page of a user' do
     visit users_path
     click_link "show #{@tom.name}"
     expect(page).to have_current_path("/users/#{@tom.id}")
   end
 
-  it 'description' do
+  it 'should have the image of the user' do
     visit users_path
     @users.each do
       expect(page).to have_selector("img[src='https://placehold.co/200x133']")
