@@ -1,6 +1,8 @@
 <h1>Users Page</h1>
 <% @users.each do |user| %>
+    <img src="<%= user.photo%>"/>
     <h3>user: <%= user.name %></h3>
     <p>Bio: <%= user.bio ? user.bio : 'No Bio' %></p>
-    <%= link_to "show user", user %>
+    <p>Posts: <%= user.posts_counter%>
+    <%= link_to "show #{user.name}", user %>
 <% end %>

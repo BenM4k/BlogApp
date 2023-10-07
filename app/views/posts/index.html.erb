@@ -1,10 +1,17 @@
-<h1><%= @user.name %>'s posts page</h1>
+<img src="<%= @user.photo%>"/>
+<h1><%= @user.name %></h1>
+<p>Posts: <%= @user.posts_counter%></p>
+
 
 <% @posts.each do |post| %>
+    <%= link_to "See #{post.title}", user_post_url(@user.id, post.id) %>
     <h2>Title: <%= post.title %></h2>
     <p>Text: <%= post.text %></p>
     <span>Likes : <%= post.likes_counter %></span>
 
     <span>Comments : <%= post.comments_counter %></span>
     <%= link_to "show post", user_post_url(@user.id, post.id) %>
+    <% post.five_recent_comments.each do |comment| %>
+        <p>Comment: <%= comment.text %></p>
+    <%end%>
 <% end %>

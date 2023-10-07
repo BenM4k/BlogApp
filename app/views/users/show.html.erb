@@ -1,19 +1,18 @@
-<h1><%= current_user.name %></h1>
+<img src="<%= @user.photo%>"/>
+<h1><%= @user.name %></h1>
+<p><%= @user.bio ? @user.bio : 'No bio' %></p>
+<p>Posts: <%= @user.posts_counter%></p>
 
-<p><%= current_user.bio ? current_user.bio : 'No bio' %></>
 <ul>
-    <% current_user.three_recent_posts.each do |post| %>
+    <% @posts.empty? ? 'No post available' : @user.three_recent_posts.each do |post| %>
         <li>
             <h2>Title: <%= post.title %></h2>
             <p>Text: <%= post.text %></p>
             <span>likes: <%= post.likes_counter %></span>
             <span>Comments: <%= post.comments_counter %></span>
-            <% if can? :manage, Post %>
-                <%= button_to 'Delete post', user_post_url(current_user.id, post.id), method: :delete %>
-            <% end %>
-
+            <%= link_to "See #{post.title}", user_post_url(@user.id, post.id) %>
         </li>
     <% end %>
     <br/>
-    <%= link_to 'See all posts', user_posts_path(current_user.id) %>
+    <%= link_to 'See all posts', user_posts_path(@user.id) %>
 </ul>

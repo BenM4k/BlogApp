@@ -1,10 +1,9 @@
 class PostsController < ApplicationController
-  load_and_authorize_resource
   before_action :set_user
   before_action :set_post, only: %i[show edit update destroy]
 
   def index
-    @posts = Post.where(author_id: @user.id)
+    @posts = @user.posts.includes(:comments)
   end
 
   def new
@@ -14,25 +13,14 @@ class PostsController < ApplicationController
   def show; end
 
   def create
-    @post = current_user.posts.build(post_params)
+    @post = @user.posts.build(post_params)
 
     if @post.save
-      redirect_to user_post_url(current_user.id, @post.id), notice: 'Post was successfully created!'
+      redirect_to user_post_url(@user.id, @post.id), notice: 'Post was successfully created!'
     else
       flash.now[:alert] = 'Post could not be created!'
       render :new
     end
-  end
-
-  def destroy
-    @post = Post.find(params[:id])
-    @comments = @post.comments
-    @likes = @post.likes
-    @comments.each(&:destroy)
-    @likes.each(&:destroy)
-    @post.destroy
-
-    redirect_to user_posts_url(current_user.id), notice: 'Post was successfully destroyed!'
   end
 
   private
